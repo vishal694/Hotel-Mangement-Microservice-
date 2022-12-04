@@ -1,0 +1,7 @@
+package com.example.hotel.controller;
+
+@RestController
+@RequestMapping("/hotels")
+public class HotelController {
+
+}

@@ -1,0 +1,5 @@
+package com.example.rating.service.impl;
+
+public class RatingServiceImpl {
+
+}
