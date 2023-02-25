@@ -2,8 +2,20 @@ server:
   port: 8083
   
 spring:
+  application:
+    name: rating-service
   data:
     mongodb:
       uri: mongodb://localhost:27017
       database: microservice
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defultZone: http://localhost:8762/eureka
       

@@ -3,6 +3,8 @@ spring:
     url: jdbc:mysql://localhost:3306/microservice
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: hotel-service
     
   jpa:
     hibernate:
@@ -11,6 +13,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
-        
+
+eureka:
+  instance:
+    prefer-ip-address: true   
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defultZone: http://localhost:8761/eureka
 server:
   port: 8082

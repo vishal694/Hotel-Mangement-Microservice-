@@ -3,6 +3,8 @@ spring:
     url: jdbc:mysql://localhost:3306/microservice
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: user-service
     
   jpa:
     hibernate:
@@ -11,6 +13,45 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
-        
+       
+  config:
+    import: optional:configserver:http://localhost:8085
+      
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defultZone: http://localhost:8763/eureka
+      
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
 server:
   port: 8081
