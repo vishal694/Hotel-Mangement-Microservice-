@@ -14,8 +14,26 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
        
-  config:
-    import: optional:configserver:http://localhost:8085
+#  config:
+#    import: optional:configserver:http://localhost:8085
+    
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri:  https://dev-41002044.okta.com/oauth2/default
+      client:
+        registration:
+          my-internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oa8heuapt6XMS6mw5d7
+            client-secret: w74uw2Ol-voRhzGFhwStGfglko-z5Ye_sYfRcc9z
+
+        provider:
+          okta:
+            issuer-uri: https://dev-41002044.okta.com/oauth2/default
       
 eureka:
   instance:
@@ -52,6 +70,12 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
+
+okta:
+  oauth2:
+    issuer: https://dev-41002044.okta.com/oauth2/default
+    audience: api://default
+
 
 server:
   port: 8081
